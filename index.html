@@ -8,11 +8,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link rel="stylesheet" href="dist/css/main.css">
+		<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 		
 	</head>
 	<body>
-
-		<form action="#" method="GET" class="key-form">
+		<form action="send-email.php" method="GET" class="key-form">
 			<div>
 				<label for="key">Key:</label>
 				<input type="text" id="key" name="user_name">
@@ -21,7 +21,7 @@
 				<button type="submit">Get</button>
 			</div>
 		</form>
-		<form action="#" method="POST" class="value-form">	
+		<form action="send-email.php" method="POST" class="value-form">	
 			<div>
 				<label for="value">Value:</label>
 				<input type="text" id="value" name="user_name">
@@ -31,7 +31,36 @@
 			</div>
 		</form>	
 		
+		<script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+		<script type="text/javascript">
+			const input = document.querySelector("#value").innerHTML;
+			const key = "my-key"; 
+			const jsonData = {
+				"type": "string",
+				"content": "test" + input
+				// document.querySelector('input').innerHTML
+			}
+			//post
 
+				axios.post("http://circuslabs.net:3000/data/" + key, jsonData)
+				.then(function(response){
+					console.log('here is the response data for post', response)
+				})
+
+				.catch(function(error){
+					console.warn(".axios encountered an error!", error)
+				});
+
+			//get
+			axios.get("http://circuslabs.net:3000/data/" + key, jsonData)
+			.then(function(response){
+				console.log('here is the response data for get', response)
+			})
+
+			.catch(function(error){
+				console.warn(".axios encountered an error!", error)
+			});
+		</script>	
 		<script src="dist/js/main.js"></script>
 
 	</body>

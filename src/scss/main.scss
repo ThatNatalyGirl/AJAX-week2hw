@@ -24,11 +24,46 @@ TABLE OF CONTENTS:
 }
 
 body {
-	background: #ccc;
-	
+	background: #122043;
+	width: 100%;
+	height: 100vh;
 }
 
+form{
+	display: flex;
+	flex-direction: column;
+	font-size: 30px;
+	margin: 50px;
+	width: 40%;
+	height: 140px;
+	background: #9ce9cc;
+	padding: 20px;
+	text-align: center; 
+	border: 5px solid #02a5aa;
+	border-radius: 10px;
+	color: #02a5aa;
+	font-weight: bold;
+	font-family: 'Do Hyeon', sans-serif;
 
+	input{
+		font-size: 20px;
+	}
+
+	button{
+		font-size: 30px;
+		border-radius: 10px;
+		width: 30%;
+		margin: 20px 0;
+		font-family: 'Do Hyeon', sans-serif;
+		color: #02a5aa;
+
+
+		&:hover{
+			background: #02a5aa;
+			color: #122043;
+		}
+	}
+}
 
 
 /* 2. Content ================================= */

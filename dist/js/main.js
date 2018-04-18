@@ -2,11 +2,11 @@
 
 console.log("I guess I work");
 
-var postButton = document.querySelector(".post-button button");
+// var postButton = document.querySelector(".post-button button");
 
-postButton.addEventListener("click", function () {
-	console.log("check");
-});
+// postButton.addEventListener("click", function(){
+// 	console.log("check")
+// });
 
 // $("button").click(function(e) {
 //     e.preventDefault();
