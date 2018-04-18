@@ -1,6 +1,4 @@
-"use strict";
 
-console.log("Please work");
 
 // var postButton = document.querySelector(".post-button button");
 
@@ -25,4 +23,5 @@ console.log("Please work");
 //         }
 //     });
 // });
+"use strict";
 //# sourceMappingURL=main.js.map
