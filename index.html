@@ -38,19 +38,19 @@
 			const key = "my-key"; 
 			const jsonData = {
 				"type": "string",
-				"content": "."
+				"content": "Nataly"
 				// document.querySelector('input').innerHTML
 			}
 			console.log(`Check`)
 
 			//post
 			document.querySelector(".get-button").addEventListener("click", function(e) {
-				console.log(keyInput.value)
 				e.preventDefault();
-				axios.post("http://circuslabs.net:3000/data/" + key, jsonData)
+				axios.get("http://circuslabs.net:3000/data/" + key, jsonData)
 				.then(function(response){
-					console.log('response data', response)
-					valueInput.value = keyInput.value
+					console.log('response data post', response)
+					response.data = keyInput.value
+					valueInput.value = response.data
 				})
 
 				.catch(function(error){
@@ -60,10 +60,10 @@
 			//get
 			document.querySelector(".post-button").addEventListener("click", function(e) {
 				e.preventDefault();
-				axios.get("http://circuslabs.net:3000/data/" + key, jsonData)
+				axios.post("http://circuslabs.net:3000/data/" + key, jsonData)
 				.then(function(response){
-					console.log('here is the response data for get', response)
-					valueInput.value = keyInput.value
+					console.log('response data get', response)
+					keyInput.value = jsonData.content
 
 				})
 
@@ -76,3 +76,7 @@
 
 	</body>
 </html>
+
+
+<!-- an API is a collective of predefined functions that you can call on and run in your code  -->
+<!-- .post posts whatever object you put in there into the website api but I don't understand .get -->
