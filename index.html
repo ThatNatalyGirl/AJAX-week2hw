@@ -15,7 +15,7 @@
 		<form action="send-email.php" method="GET" class="key-form">
 			<div>
 				<label for="key">Key:</label>
-				<input type="text" id="key" name="user_name">
+				<input type="text" id="key">
 			</div>
 			<div>
 				<button class="get-button" type="submit">Get</button>
@@ -24,7 +24,7 @@
 		<form action="send-email.php" method="POST" class="value-form">	
 			<div>
 				<label for="value">Value:</label>
-				<input type="text" id="value" name="user_name">
+				<input type="text" id="value">
 			</div>
 			<div>
 				<button class="post-button" type="submit">Post</button>
@@ -33,21 +33,24 @@
 		
 		<script src="http://unpkg.com/axios/dist/axios.min.js"></script>
 		<script type="text/javascript">
-			const input = document.querySelector("#value").innerHTML;
+			var keyInput = document.querySelector("#key");
+			var valueInput = document.querySelector("#value");
 			const key = "my-key"; 
 			const jsonData = {
 				"type": "string",
-				"content": "test" + input
+				"content": "."
 				// document.querySelector('input').innerHTML
 			}
 			console.log(`Check`)
 
 			//post
 			document.querySelector(".get-button").addEventListener("click", function(e) {
+				console.log(keyInput.value)
 				e.preventDefault();
 				axios.post("http://circuslabs.net:3000/data/" + key, jsonData)
 				.then(function(response){
-					console.log('here is the response data for post', response)
+					console.log('response data', response)
+					valueInput.value = keyInput.value
 				})
 
 				.catch(function(error){
@@ -60,6 +63,8 @@
 				axios.get("http://circuslabs.net:3000/data/" + key, jsonData)
 				.then(function(response){
 					console.log('here is the response data for get', response)
+					valueInput.value = keyInput.value
+
 				})
 
 				.catch(function(error){
