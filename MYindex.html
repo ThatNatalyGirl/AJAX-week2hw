@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title> Keys and Values </title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="dist/css/main.css">
+		<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+		
+	</head>
+	<body>
+		<form action="send-email.php" method="GET" class="key-form">
+			<div>
+				<label for="key">Key:</label>
+				<input type="text" id="key">
+			</div>
+			<div>
+				<button class="get-button" type="submit">Get</button>
+			</div>
+		</form>
+		<form action="send-email.php" method="POST" class="value-form">	
+			<div>
+				<label for="value">Value:</label>
+				<input type="text" id="value">
+			</div>
+			<div>
+				<button class="post-button" type="submit">Post</button>
+			</div>
+		</form>	
+		
+		<script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+		<script type="text/javascript">
+			var keyInput = document.querySelector("#key");
+			var valueInput = document.querySelector("#value");
+			const key = "my-key"; 
+			const jsonData = {
+				"type": "string",
+				"content": "Nataly"
+				// document.querySelector('input').innerHTML
+			}
+			console.log(`Check`)
+
+			//post
+			document.querySelector(".get-button").addEventListener("click", function(e) {
+				e.preventDefault();
+				axios.get("http://circuslabs.net:3000/data/" + key, jsonData)
+				.then(function(response){
+					console.log('response data post', response)
+					response.data = keyInput.value
+					valueInput.value = response.data
+				})
+
+				.catch(function(error){
+					console.warn(".axios encountered an error!", error)
+				})
+			});
+			//get
+			document.querySelector(".post-button").addEventListener("click", function(e) {
+				e.preventDefault();
+				axios.post("http://circuslabs.net:3000/data/" + key, jsonData)
+				.then(function(response){
+					console.log('response data get', response)
+					keyInput.value = jsonData.content
+
+				})
+
+				.catch(function(error){
+					console.warn(".axios encountered an error!", error)
+				})
+			});	
+		</script>	
+		<script src="dist/js/main.js"></script>
+
+	</body>
+</html>
+
+
+<!-- an API is a collective of predefined functions that you can call on and run in your code  -->
+<!-- .post posts whatever object you put in there into the website api but I don't understand .get -->

@@ -12,71 +12,84 @@
 		
 	</head>
 	<body>
-		<form action="send-email.php" method="GET" class="key-form">
-			<div>
-				<label for="key">Key:</label>
-				<input type="text" id="key">
-			</div>
-			<div>
-				<button class="get-button" type="submit">Get</button>
-			</div>
+		<form>
+			<label>Key:
+				<input type="text" name="key" id="key">
+			</label>
+			<label>Value:
+				<input type="text" name="value" id="value">
+			</label>
+
+			<button id="get" class="get-button" type="submit">Get</button>
+			<button id="post" class="post-button" type="submit">Post</button>
+<!-- 
+			<a id="get" href="#"></a>
+			<a id="post" h --><!-- ref="#"></a> -->
 		</form>
-		<form action="send-email.php" method="POST" class="value-form">	
-			<div>
-				<label for="value">Value:</label>
-				<input type="text" id="value">
-			</div>
-			<div>
-				<button class="post-button" type="submit">Post</button>
-			</div>
-		</form>	
-		
-		<script src="http://unpkg.com/axios/dist/axios.min.js"></script>
-		<script type="text/javascript">
-			var keyInput = document.querySelector("#key");
-			var valueInput = document.querySelector("#value");
-			const key = "my-key"; 
-			const jsonData = {
-				"type": "string",
-				"content": "Nataly"
-				// document.querySelector('input').innerHTML
-			}
-			console.log(`Check`)
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+	
 
-			//post
-			document.querySelector(".get-button").addEventListener("click", function(e) {
-				e.preventDefault();
-				axios.get("http://circuslabs.net:3000/data/" + key, jsonData)
-				.then(function(response){
-					console.log('response data post', response)
-					response.data = keyInput.value
-					valueInput.value = response.data
-				})
+		const keyEl = document.getElementById('key');
+		const valueEl = document.getElementById('value');
+		const getBtn = document.getElementById('get');
+		const postBtn = document.getElementById('post');
 
-				.catch(function(error){
-					console.warn(".axios encountered an error!", error)
-				})
+
+		getBtn.addEventListener("click", function(e) {
+			e.preventDefault();
+			const keyValue = keyEl.value;
+			console.log('keyValue', keyValue);
+			getValueFromApi(keyValue);
+		})
+
+		postBtn.addEventListener("click", function(e) {
+			e.preventDefault();
+			const keyValue = keyEl.value;
+			const valueValue = valueEl.value;
+			console.log('valueValue', valueValue);
+			postValueFromApi(keyValue, valueValue);
+
+		})
+
+		function getValueFromApi(key){
+			axios.get("http://circuslabs.net:3000/data/" + key)
+			.then(function(response){
+				console.log('here is the response data for key:', response.data, response);
+				valueEl.value = response.data;
+			})
+			.catch(function(error) {
+				console.warn('.axios encountered an error!', error);
+				valueEl.value = "UNDEFINED"
 			});
-			//get
-			document.querySelector(".post-button").addEventListener("click", function(e) {
-				e.preventDefault();
-				axios.post("http://circuslabs.net:3000/data/" + key, jsonData)
-				.then(function(response){
-					console.log('response data get', response)
-					keyInput.value = jsonData.content
+		}
 
-				})
 
-				.catch(function(error){
-					console.warn(".axios encountered an error!", error)
-				})
-			});	
+
+
+		function postValueFromApi(key, value){
+			const jsonData ={
+				"type": "string",
+				"content": value
+			}
+			axios.post("http://circuslabs.net:3000/data/" + key, jsonData)
+			.then(function(response){
+				console.log('here is the response data for key:', response.data, response, "status: " + response.status + ": " + response.statusText);
+				valueEl.value = "";
+			})
+			.catch(function(error) {
+				console.warn('.axios encountered an error!', error);
+				valueEl.value = "UNDEFINED"
+			});
+		}
+
 		</script>	
 		<script src="dist/js/main.js"></script>
 
 	</body>
 </html>
 
-
+<!-- iffy  -->
+<!-- post is pushing get is fetching -->
 <!-- an API is a collective of predefined functions that you can call on and run in your code  -->
 <!-- .post posts whatever object you put in there into the website api but I don't understand .get -->
